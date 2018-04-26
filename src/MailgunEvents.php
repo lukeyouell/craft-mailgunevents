@@ -10,16 +10,14 @@
 
 namespace lukeyouell\mailgunevents;
 
-use lukeyouell\mailgunevents\utilities\MailgunEventsUtility as MailgunEventsUtilityUtility;
+use yii\base\Event;
 
 use Craft;
 use craft\base\Plugin;
-use craft\services\Plugins;
-use craft\events\PluginEvent;
 use craft\services\Utilities;
 use craft\events\RegisterComponentTypesEvent;
 
-use yii\base\Event;
+use lukeyouell\mailgunevents\utilities\MailgunEventsUtility;
 
 /**
  * Class MailgunEvents
@@ -39,14 +37,6 @@ class MailgunEvents extends Plugin
      */
     public static $plugin;
 
-    // Public Properties
-    // =========================================================================
-
-    /**
-     * @var string
-     */
-    public $schemaVersion = '1.0.0';
-
     // Public Methods
     // =========================================================================
 
@@ -62,26 +52,8 @@ class MailgunEvents extends Plugin
             Utilities::class,
             Utilities::EVENT_REGISTER_UTILITY_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = MailgunEventsUtilityUtility::class;
+                $event->types[] = MailgunEventsUtility::class;
             }
-        );
-
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                }
-            }
-        );
-
-        Craft::info(
-            Craft::t(
-                'mailgun-events',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
         );
     }
 

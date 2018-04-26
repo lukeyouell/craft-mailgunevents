@@ -10,19 +10,22 @@
 
 namespace lukeyouell\mailgunevents\utilities;
 
-use lukeyouell\mailgunevents\MailgunEvents;
-
 use Craft;
 use craft\base\Utility;
+use craft\mailgun\MailgunAdapter;
+
+use Mailgun\Mailgun;
+
+use lukeyouell\mailgunevents\MailgunEvents;
 
 /**
- * Mailgun Events
+ * Mailgun Events Utility
  *
  * @author    Luke Youell
  * @package   MailgunEvents
  * @since     1.0.0
  */
-class MailgunEvents extends Utility
+class MailgunEventsUtility extends Utility
 {
     // Static
     // =========================================================================
@@ -40,7 +43,7 @@ class MailgunEvents extends Utility
      */
     public static function id(): string
     {
-        return 'mailgun-events';
+        return 'mailgun-events-utility';
     }
 
     /**
@@ -54,24 +57,18 @@ class MailgunEvents extends Utility
     /**
      * @inheritdoc
      */
-    public static function badgeCount(): int
-    {
-        return 0;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public static function contentHtml(): string
     {
-        Craft::$app->getView()->registerAssetBundle(MailgunEventsUtilityUtilityAsset::class);
-
-        $someVar = 'Have a nice day!';
         return Craft::$app->getView()->renderTemplate(
-            'mailgun-events/_components/utilities/MailgunEventsUtility_content',
+            'mailgun-events/utility',
             [
-                'someVar' => $someVar
+                'events' => self::getEvents()
             ]
         );
+    }
+
+    public static function getEvents(): string
+    {
+        return Craft::$app->Mailgun->mailgunAdapter->apiKey;
     }
 }
