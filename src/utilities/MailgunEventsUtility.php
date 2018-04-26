@@ -12,6 +12,7 @@ namespace lukeyouell\mailgunevents\utilities;
 
 use Craft;
 use craft\base\Utility;
+use craft\services\SystemSettings;
 use craft\mailgun\MailgunAdapter;
 
 use Mailgun\Mailgun;
@@ -67,8 +68,18 @@ class MailgunEventsUtility extends Utility
         );
     }
 
-    public static function getEvents(): string
+    public static function getEvents()
     {
-        return 'return events';
+        $settings = Craft::$app->systemSettings->getSettings('email');
+        $key = $settings['transportSettings']['apiKey'];
+        $domain = $settings['transportSettings']['domain'];
+
+        $client = new Mailgun($key);
+        $query = [
+            'limit' => 50,
+            'event' => 'delivered OR failed'
+        ];
+
+        return $client->get($domain.'/events', $query);
     }
 }

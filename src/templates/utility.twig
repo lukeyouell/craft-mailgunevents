@@ -13,22 +13,31 @@
  */
 #}
 
-<div class="tableview">
-  <table class="data fullwidth collapsible">
-    <thead>
-      <tr>
-        <th scope="col">Summary</th>
-        <th scope="col">Date/Time</th>
-      </tr>
-    </thead>
+{% if events %}
+  <div class="tableview">
+    <table class="data fullwidth collapsible">
+      <thead>
+        <tr>
+          <th scope="col">Event</th>
+          <th scope="col">Recipient</th>
+          <th scope="col">Date/Time</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr>
-        <td>
-          <span class="status green"></span> Hello
-        </td>
-        <td>24/07/2018 12:34</td>
-      </tr>
-    </tbody>
+      <tbody>
+        {% for item in events.http_response_body.items %}
+          <tr>
+            <td>
+              <span class="status {{
+                item.event == 'delivered' ? 'green' :
+                item.event == 'failed' ? 'red' :
+                'light' }}"></span> {{ item.event|title }}
+            </td>
+            <td>{{ item.recipient }}</td>
+            <td>{{ (item.timestamp|round)|date('jS F Y H:i') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </table>
-</table>
+{% endif %}
