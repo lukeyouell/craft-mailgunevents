@@ -69,6 +69,6 @@ class MailgunEventsUtility extends Utility
 
     public static function getEvents(): string
     {
-        return Craft::$app->Mailgun->mailgunAdapter->apiKey;
+        return 'return events';
     }
 }
