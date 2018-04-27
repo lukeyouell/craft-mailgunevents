@@ -6,24 +6,48 @@
       <table class="data fullwidth collapsible">
         <thead>
           <tr>
-            <th scope="col">Event</th>
-            <th scope="col">Recipient</th>
-            <th scope="col">Date/Time</th>
+            <th colspan="2">Status</th>
+            <th>Details</th>
           </tr>
         </thead>
 
         <tbody>
           {% for item in events.http_response_body.items %}
+            {% set message = attribute(item, 'delivery-status').message ?? null %}
             <tr>
-              <td>
+              <td class="thin">
                 <span class="status {{
                   item.event == 'delivered' ? 'green' :
-                  item.event == 'failed' ? 'red' :
-                  'light' }}"></span> {{ item.event|title }}
+                  item.event == 'accepted' ? 'orange' :
+                  item.event in ['failed', 'rejected'] ? 'red' :
+                  'light' }}"></span>
               </td>
-              <td>{{ item.recipient }}</td>
-              <td>{{ (item.timestamp|round)|date('jS F Y H:i') }}</td>
+              <td>
+                <div>{{ item.event|title }}</div>
+                <div class="light">
+                  <code>{{ (item.timestamp|round)|date('Y/m/d H:i:s') }}</code>
+                </div>
+              </td>
+              <td>
+                <div>To: {{ item.recipient }}</div>
+                <div class="light">
+                  <code>[{{ item.message.headers.subject }}]</code>
+                </div>
+                <div class="light">
+                  <code>from {{ item.message.headers.from }}</code>
+                </div>
+              </td>
             </tr>
+            {% if (message) and (message != 'OK') %}
+              <tr>
+                <td></td>
+                <td colspan="2">
+                  <div class="light">
+                    <code>[{{ attribute(item, 'delivery-status').message }}]</code>
+                  </div>
+                </td>
+              </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>
