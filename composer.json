@@ -1,0 +1,41 @@
+{
+    "name": "lukeyouell/craft-mailgunevents",
+    "description": "Track Mailgun events from the utilities section",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "mailgun events"
+    ],
+    "support": {
+        "docs": "https://github.com/lukeyouell/craft-mailgunevents/blob/master/README.md",
+        "issues": "https://github.com/lukeyouell/craft-mailgunevents/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luke Youell",
+            "homepage": "https://github.com/lukeyouell"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0",
+        "craftcms/mailgun": "^1.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "lukeyouell\\mailgunevents\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Mailgun Events",
+        "handle": "mailgun-events",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-mailgunevents/master/CHANGELOG.md",
+        "class": "lukeyouell\\mailgunevents\\MailgunEvents"
+    }
+}
