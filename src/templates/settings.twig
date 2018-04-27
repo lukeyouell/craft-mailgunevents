@@ -1,5 +1,14 @@
 {% import "_includes/forms" as forms %}
 
+{% macro configWarning(setting) -%}
+  {% set setting = '<code>' ~ setting ~ '</code>' %}
+  {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('mailgun-events', {
+      setting: setting,
+      file:    'mailgun-events.php'
+  })|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
 
 {{ forms.checkboxGroupField({
     first: true,
@@ -18,8 +27,10 @@
       stored: 'Stored',
       unsubscribed: 'Unsubscribed',
     },
-    values: settings.eventTypes})
-}}
+    values: settings.eventTypes,
+    disabled: 'eventTypes' in overrides,
+    warning: 'eventTypes' in overrides ? configWarning('eventTypes')
+}) }}
 
 {{ forms.selectField({
     required: true,
@@ -36,5 +47,7 @@
       250: '250',
       300: '300',
     },
-    value: settings.limit})
-}}
+    value: settings.limit,
+    disabled: 'limit' in overrides,
+    warning: 'limit' in overrides ? configWarning('limit')
+}) }}
