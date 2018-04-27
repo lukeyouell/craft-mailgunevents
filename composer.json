@@ -33,7 +33,7 @@
     "extra": {
         "name": "Mailgun Events",
         "handle": "mailgun-events",
-        "hasCpSettings": false,
+        "hasCpSettings": true,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-mailgunevents/master/CHANGELOG.md",
         "class": "lukeyouell\\mailgunevents\\MailgunEvents"

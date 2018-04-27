@@ -17,6 +17,7 @@ use craft\base\Plugin;
 use craft\services\Utilities;
 use craft\events\RegisterComponentTypesEvent;
 
+use lukeyouell\mailgunevents\models\Settings;
 use lukeyouell\mailgunevents\utilities\MailgunEventsUtility;
 
 /**
@@ -60,4 +61,30 @@ class MailgunEvents extends Plugin
     // Protected Methods
     // =========================================================================
 
+    /**
+     * @inheritdoc
+     */
+    protected function createSettingsModel()
+    {
+        return new Settings();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function settingsHtml(): string
+    {
+        // Get and pre-validate the settings
+        $settings = $this->getSettings();
+        $settings->validate();
+        // Get the settings that are being defined by the config file
+        $overrides = Craft::$app->getConfig()->getConfigFromFile(strtolower($this->handle));
+        return Craft::$app->view->renderTemplate(
+            'mailgun-events/settings',
+            [
+                'settings' => $settings,
+                'overrides' => array_keys($overrides)
+            ]
+        );
+    }
 }

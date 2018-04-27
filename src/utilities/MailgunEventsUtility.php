@@ -70,14 +70,15 @@ class MailgunEventsUtility extends Utility
 
     public static function getEvents()
     {
-        $settings = Craft::$app->systemSettings->getSettings('email');
-        $key = $settings['transportSettings']['apiKey'];
-        $domain = $settings['transportSettings']['domain'];
+        $pluginSettings = MailgunEvents::$plugin->getSettings();
+        $emailSettings = Craft::$app->systemSettings->getSettings('email');
+        $key = $emailSettings['transportSettings']['apiKey'];
+        $domain = $emailSettings['transportSettings']['domain'];
 
         $client = new Mailgun($key);
         $query = [
-            'limit' => 50,
-            'event' => 'delivered OR failed'
+            'limit' => $pluginSettings->limit,
+            'event' => implode(' OR ', $pluginSettings->eventTypes),
         ];
 
         return $client->get($domain.'/events', $query);
