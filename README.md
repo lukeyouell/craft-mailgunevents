@@ -4,6 +4,8 @@
 
 Track Mailgun events from the utilities section
 
+![Screenshot](resources/img/screenshot.png)
+
 ## Requirements
 
 This plugin requires Craft CMS 3.0.0 or later and [Mailgun 1.2.0](https://github.com/craftcms/mailgun) or later.
