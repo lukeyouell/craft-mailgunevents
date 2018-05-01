@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.4 - 2018-05-01
+
+### Fixed
+- Message details depending on event type
+
 ## 1.0.3 - 2018-05-01
 
 ### Added
