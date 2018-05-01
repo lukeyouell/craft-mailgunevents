@@ -29,12 +29,12 @@
                 </div>
               </td>
               <td>
-                <div>To: {{ item.recipient }}</div>
+                <div>To: {{ item.recipient|default('Undefined') }}</div>
                 <div class="light">
-                  <code>[{{ item.message.headers.subject }}]</code>
+                  <code>[{{ item.message.headers.subject|default('Undefined') }}]</code>
                 </div>
                 <div class="light">
-                  <code>from {{ item.message.headers.from }}</code>
+                  <code>from {{ item.message.headers.from|default('Undefined') }}</code>
                 </div>
               </td>
             </tr>
@@ -43,7 +43,7 @@
                 <td></td>
                 <td colspan="2">
                   <div class="light">
-                    <code>[{{ attribute(item, 'delivery-status').message }}]</code>
+                    <code>[{{ attribute(item, 'delivery-status').message|default('Undefined') }}]</code>
                   </div>
                 </td>
               </tr>
