@@ -2,7 +2,7 @@
     "name": "lukeyouell/craft-mailgunevents",
     "description": "Track Mailgun events from the utilities section",
     "type": "craft-plugin",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "keywords": [
         "craft",
         "cms",
