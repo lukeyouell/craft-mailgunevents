@@ -30,12 +30,18 @@
               </td>
               <td>
                 <div>To: {{ item.recipient|default('Undefined') }}</div>
-                <div class="light">
-                  <code>[{{ item.message.headers.subject|default('Undefined') }}]</code>
-                </div>
-                <div class="light">
-                  <code>from {{ item.message.headers.from|default('Undefined') }}</code>
-                </div>
+                {% if item.message %}
+                  <div class="light">
+                    <code>[{{ item.message.headers.subject|default('Undefined') }}]</code>
+                  </div>
+                  <div class="light">
+                    <code>from {{ item.message.headers.from|default('Undefined') }}</code>
+                  </div>
+                {% elseif item.event == 'clicked' %}
+                  <div class="light">
+                    <code>{{ item.url }}</code>
+                  </div>
+                {% endif %}
               </td>
             </tr>
             {% if (message) and (message != 'OK') %}
