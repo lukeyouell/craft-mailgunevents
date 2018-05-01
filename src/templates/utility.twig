@@ -30,7 +30,7 @@
               </td>
               <td>
                 <div>To: {{ item.recipient|default('Undefined') }}</div>
-                {% if item.message %}
+                {% if item.event in ['accepted', 'delivered', 'failed', 'rejected'] %}
                   <div class="light">
                     <code>[{{ item.message.headers.subject|default('Undefined') }}]</code>
                   </div>
@@ -39,7 +39,7 @@
                   </div>
                 {% elseif item.event == 'clicked' %}
                   <div class="light">
-                    <code>{{ item.url }}</code>
+                    <code>{{ item.url|default('Undefined') }}</code>
                   </div>
                 {% endif %}
               </td>
