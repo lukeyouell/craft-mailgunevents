@@ -4,17 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## 1.0.3 - 2018-05-01
 
-## Added
+### Added
 - Click event url
 
 ## 1.0.2 - 2018-05-01
 
-## Added
+### Added
 - Defensive coding to utility template
 
 ## 1.0.1 - 2018-04-27
 
-## Fixed
+### Fixed
 - Missing plugin override messages in settings templates
 
 ## 1.0.0 - 2018-04-27
