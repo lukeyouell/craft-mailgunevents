@@ -72,8 +72,8 @@ class MailgunEventsUtility extends Utility
     {
         $pluginSettings = MailgunEvents::$plugin->getSettings();
         $emailSettings = Craft::$app->systemSettings->getSettings('email');
-        $key = $emailSettings['transportSettings']['apiKey'];
-        $domain = $emailSettings['transportSettings']['domain'];
+        $key = Craft::parseEnv($emailSettings['transportSettings']['apiKey']);
+        $domain = Craft::parseEnv($emailSettings['transportSettings']['domain']);
 
         $client = new Mailgun($key);
         $query = [
